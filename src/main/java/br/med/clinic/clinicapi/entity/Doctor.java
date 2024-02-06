@@ -29,6 +29,8 @@ public class Doctor {
     @Column(name = "endereco")
     @Embedded
     private Address address;
+    @Column(name = "telefone")
+    private String phone;
 
     public Doctor(DoctorRegisterRecord record) {
         this.setName(record.name());
@@ -36,5 +38,6 @@ public class Doctor {
         this.setCrm(record.crm());
         this.setSpeciality(record.speciality());
         this.setAddress(new Address(record.address()));
+        this.setPhone(record.phone());
     }
 }
