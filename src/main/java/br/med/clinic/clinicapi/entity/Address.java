@@ -34,8 +34,17 @@ public class Address {
         this.setZipCode(address.zipCode());
         this.setCity(address.city());
         this.setState(address.state());
-        this.setCity(address.city());
         this.setComplement(address.complement());
         this.setNumber(address.number());
+    }
+
+    public void updateInformation(AddressRecord address) {
+        if(address.streetName() != null) this.setStreetName(address.streetName());
+        if(address.neighborhood() != null) this.setNeighborhood(address.neighborhood());
+        if(address.zipCode() != null) this.setZipCode(address.zipCode());
+        if(address.city() != null) this.setCity(address.city());
+        if(address.state() != null) this.setState(address.state());
+        if(address.complement() != null) this.setComplement(address.complement());
+        if(address.number() != null) this.setNumber(address.number());
     }
 }

@@ -2,6 +2,7 @@ package br.med.clinic.clinicapi.entity;
 
 import br.med.clinic.clinicapi.enums.Speciality;
 import br.med.clinic.clinicapi.record.DoctorRegisterRecord;
+import br.med.clinic.clinicapi.record.DoctorUpdateRecord;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,8 @@ public class Doctor {
     private Address address;
     @Column(name = "telefone")
     private String phone;
+    @Column(name = "ativo")
+    private Boolean active;
 
     public Doctor(DoctorRegisterRecord record) {
         this.setName(record.name());
@@ -39,5 +42,16 @@ public class Doctor {
         this.setSpeciality(record.speciality());
         this.setAddress(new Address(record.address()));
         this.setPhone(record.phone());
+        this.setActive(true);
+    }
+
+    public void updateInformation(DoctorUpdateRecord record) {
+        if(record.name() != null) this.setName(record.name());
+        if(record.phone() != null) this.setPhone(record.phone());
+        if(record.address() != null) this.address.updateInformation(record.address());
+    }
+
+    public void delete() {
+        this.setActive(false);
     }
 }

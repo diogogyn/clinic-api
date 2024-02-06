@@ -3,6 +3,7 @@ package br.med.clinic.clinicapi.controller;
 import br.med.clinic.clinicapi.entity.Doctor;
 import br.med.clinic.clinicapi.record.DoctorListRecord;
 import br.med.clinic.clinicapi.record.DoctorRegisterRecord;
+import br.med.clinic.clinicapi.record.DoctorUpdateRecord;
 import br.med.clinic.clinicapi.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -13,6 +14,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("doctor")
@@ -27,7 +29,20 @@ public class DoctorController {
 
     @GetMapping
     public Page<DoctorListRecord> listAll(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
-        return this.doctorRepository.findAll(page).map(DoctorListRecord::new);
+        return this.doctorRepository.findAllByActiveTrue(page).map(DoctorListRecord::new);
     }
 
+    @PutMapping
+    @Transactional
+    public void update(@RequestBody @Valid DoctorUpdateRecord record){
+        Doctor byId = this.doctorRepository.getReferenceById(record.id());
+        byId.updateInformation(record);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void delete(@PathVariable Long id){
+        Doctor byId = this.doctorRepository.getReferenceById(id);
+        byId.delete();
+    }
 }
