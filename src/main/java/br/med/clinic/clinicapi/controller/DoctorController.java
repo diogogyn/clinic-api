@@ -1,6 +1,6 @@
 package br.med.clinic.clinicapi.controller;
 
-import br.med.clinic.clinicapi.entity.Doctor;
+import br.med.clinic.clinicapi.domain.Doctor;
 import br.med.clinic.clinicapi.record.DoctorDetailsRecord;
 import br.med.clinic.clinicapi.record.DoctorListRecord;
 import br.med.clinic.clinicapi.record.DoctorRegisterRecord;
@@ -14,12 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("doctor")
@@ -39,7 +36,12 @@ public class DoctorController {
         Page<DoctorListRecord> pageResult = this.doctorRepository.findAllByActiveTrue(page).map(DoctorListRecord::new);
         return ResponseEntity.ok(pageResult);
     }
-
+    @GetMapping("/{id}")
+    @Transactional
+    public ResponseEntity listOne(@PathVariable Long id){
+        Doctor doctor = this.doctorRepository.getReferenceById(id);
+        return ResponseEntity.ok(new DoctorDetailsRecord(doctor));
+    }
     @PutMapping
     @Transactional
     public ResponseEntity update(@RequestBody @Valid DoctorUpdateRecord record){

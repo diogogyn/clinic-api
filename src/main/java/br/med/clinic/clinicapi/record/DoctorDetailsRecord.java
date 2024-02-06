@@ -1,7 +1,7 @@
 package br.med.clinic.clinicapi.record;
 
-import br.med.clinic.clinicapi.entity.Address;
-import br.med.clinic.clinicapi.entity.Doctor;
+import br.med.clinic.clinicapi.domain.Address;
+import br.med.clinic.clinicapi.domain.Doctor;
 import br.med.clinic.clinicapi.enums.Speciality;
 
 public record DoctorDetailsRecord(Long id, String name, String email, String phone, String crm, Speciality speciality, Address address, Boolean active) {

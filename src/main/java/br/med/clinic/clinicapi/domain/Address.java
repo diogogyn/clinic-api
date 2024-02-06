@@ -1,4 +1,4 @@
-package br.med.clinic.clinicapi.entity;
+package br.med.clinic.clinicapi.domain;
 
 import br.med.clinic.clinicapi.record.AddressRecord;
 import jakarta.persistence.*;
