@@ -7,10 +7,11 @@ import br.med.clinic.clinicapi.repository.DoctorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.Doc;
 import java.util.List;
 
 @RestController
@@ -25,8 +26,8 @@ public class DoctorController {
     }
 
     @GetMapping
-    public List<DoctorListRecord> listAll(){
-        return doctorRepository.findAll().stream().map(DoctorListRecord::new).toList();
+    public Page<DoctorListRecord> listAll(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
+        return this.doctorRepository.findAll(page).map(DoctorListRecord::new);
     }
 
 }
