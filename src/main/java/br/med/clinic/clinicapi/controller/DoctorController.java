@@ -3,6 +3,8 @@ package br.med.clinic.clinicapi.controller;
 import br.med.clinic.clinicapi.entity.Doctor;
 import br.med.clinic.clinicapi.record.DoctorRegisterRecord;
 import br.med.clinic.clinicapi.repository.DoctorRepository;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +18,10 @@ public class DoctorController {
     @Autowired
     private DoctorRepository doctorRepository;
     @PostMapping
-    public void create(@RequestBody DoctorRegisterRecord record) {
+    @Transactional
+    public void create(@RequestBody @Valid DoctorRegisterRecord record) {
 
         doctorRepository.save(new Doctor(record));
-        //System.out.println(dados);
     }
 
 }

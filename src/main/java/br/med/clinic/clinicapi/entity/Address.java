@@ -13,12 +13,19 @@ import lombok.Setter;
 @Getter
 @Embeddable
 public class Address {
+    @Column(name = "logradouro")
     String streetName;
+    @Column(name = "bairro")
     String neighborhood;
+    @Column(name = "cep")
     String zipCode;
+    @Column(name = "cidade")
     String city;
+    @Column(name = "uf")
     String state;
+    @Column(name = "complemento")
     String complement;
+    @Column(name = "numero")
     String number;
 
     public Address(AddressRecord address) {

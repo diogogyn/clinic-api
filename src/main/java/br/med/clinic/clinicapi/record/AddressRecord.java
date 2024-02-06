@@ -1,4 +1,20 @@
 package br.med.clinic.clinicapi.record;
 
-public record AddressRecord(String streetName, String neighborhood, String zipCode, String city, String state, String complement, String number) {
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+
+public record AddressRecord(
+        @NotBlank
+        String streetName,
+        @NotBlank
+        String neighborhood,
+        @NotBlank
+        @Pattern(regexp = "\\d{8}")
+        String zipCode,
+        @NotBlank
+        String city,
+        @NotBlank
+        String state,
+        String complement,
+        String number) {
 }
