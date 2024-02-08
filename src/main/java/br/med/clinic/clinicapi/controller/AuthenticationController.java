@@ -1,6 +1,8 @@
 package br.med.clinic.clinicapi.controller;
 
 import br.med.clinic.clinicapi.domain.user.AuthenticationRecord;
+import br.med.clinic.clinicapi.domain.user.User;
+import br.med.clinic.clinicapi.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +17,14 @@ public class AuthenticationController {
 
     @Autowired
     private AuthenticationManager manager;
+    @Autowired
+    private TokenService tokenService;
+
+
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid AuthenticationRecord authenticationRecord){
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authenticationRecord.login(), authenticationRecord.senha());
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authenticationRecord.login(), authenticationRecord.password());
         Authentication authenticate = this.manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(tokenService.generateToken((User) authenticate.getPrincipal()));
     }
 }

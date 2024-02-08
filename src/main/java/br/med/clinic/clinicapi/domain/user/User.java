@@ -24,7 +24,10 @@ public class User implements UserDetails {
     private String login;
     @Column(name = "senha")
     private String senha;
-
+    /**
+     * para controlde de acessos/perfis. Implementar no futuro
+     * @return
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
@@ -49,7 +52,10 @@ public class User implements UserDetails {
     public boolean isAccountNonLocked() {
         return true;
     }
-
+    /**
+     * Implementar no futuro o controle de expiração do usuario. Procurar como implementar a expiração da credencial do usuario
+     * @return
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -59,14 +65,4 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-
-    /**
-     * para controlde de acessos/perfis. Implementar no futuro
-     * @return
-     */
-
-    /**
-     * Implementar no futuro o controle de expiração do usuario. Procurar como implementar a expiração da credencial do usuario
-     * @return
-     */
 }
