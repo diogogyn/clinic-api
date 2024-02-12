@@ -3,6 +3,7 @@ package br.med.clinic.clinicapi.controller;
 import br.med.clinic.clinicapi.domain.user.AuthenticationRecord;
 import br.med.clinic.clinicapi.domain.user.User;
 import br.med.clinic.clinicapi.infra.security.TokenService;
+import br.med.clinic.clinicapi.record.TokenJWTRecord;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,9 @@ public class AuthenticationController {
 
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid AuthenticationRecord authenticationRecord){
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(authenticationRecord.login(), authenticationRecord.password());
-        Authentication authenticate = this.manager.authenticate(token);
-        return ResponseEntity.ok().body(tokenService.generateToken((User) authenticate.getPrincipal()));
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authenticationRecord.login(), authenticationRecord.password());
+        Authentication authenticate = this.manager.authenticate(authenticationToken);
+        String tokenJWT = tokenService.generateToken((User) authenticate.getPrincipal());
+        return ResponseEntity.ok().body(new TokenJWTRecord(tokenJWT));
     }
 }
