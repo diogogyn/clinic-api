@@ -3,7 +3,7 @@ package br.med.clinic.clinicapi.controller;
 import br.med.clinic.clinicapi.domain.user.AuthenticationRecord;
 import br.med.clinic.clinicapi.domain.user.User;
 import br.med.clinic.clinicapi.infra.security.TokenService;
-import br.med.clinic.clinicapi.record.TokenJWTRecord;
+import br.med.clinic.clinicapi.infra.security.TokenJWTRecord;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
