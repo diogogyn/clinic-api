@@ -26,7 +26,7 @@ public class AuthenticationController {
     public ResponseEntity login(@RequestBody @Valid AuthenticationRecord authenticationRecord){
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(authenticationRecord.login(), authenticationRecord.password());
         Authentication authenticate = this.manager.authenticate(authenticationToken);
-        String tokenJWT = tokenService.generateToken((User) authenticate.getPrincipal());
+        String tokenJWT = this.tokenService.generateToken((User) authenticate.getPrincipal());
         return ResponseEntity.ok().body(new TokenJWTRecord(tokenJWT));
     }
 }
