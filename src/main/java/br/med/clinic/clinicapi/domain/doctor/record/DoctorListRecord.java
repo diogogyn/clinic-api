@@ -1,7 +1,7 @@
-package br.med.clinic.clinicapi.record.doctor;
+package br.med.clinic.clinicapi.domain.doctor.record;
 
 import br.med.clinic.clinicapi.domain.doctor.Doctor;
-import br.med.clinic.clinicapi.enums.Speciality;
+import br.med.clinic.clinicapi.domain.doctor.enums.Speciality;
 
 public record DoctorListRecord (Long id, String name, String email, String crm, Speciality speciality, Boolean active){
     public DoctorListRecord(Doctor doctor) {

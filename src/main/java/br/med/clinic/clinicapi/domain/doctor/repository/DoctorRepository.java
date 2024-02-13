@@ -1,4 +1,4 @@
-package br.med.clinic.clinicapi.repository;
+package br.med.clinic.clinicapi.domain.doctor.repository;
 
 import br.med.clinic.clinicapi.domain.doctor.Doctor;
 import org.springframework.data.domain.Page;

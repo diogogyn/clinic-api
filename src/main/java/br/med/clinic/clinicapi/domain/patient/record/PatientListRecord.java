@@ -1,4 +1,4 @@
-package br.med.clinic.clinicapi.record.patient;
+package br.med.clinic.clinicapi.domain.patient.record;
 
 import br.med.clinic.clinicapi.domain.patient.Patient;
 

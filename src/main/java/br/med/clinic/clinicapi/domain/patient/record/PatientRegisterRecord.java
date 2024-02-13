@@ -1,6 +1,6 @@
-package br.med.clinic.clinicapi.record.patient;
+package br.med.clinic.clinicapi.domain.patient.record;
 
-import br.med.clinic.clinicapi.record.address.AddressRecord;
+import br.med.clinic.clinicapi.domain.address.record.AddressRecord;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

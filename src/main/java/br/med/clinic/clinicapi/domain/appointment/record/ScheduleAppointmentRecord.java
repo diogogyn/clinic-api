@@ -1,4 +1,4 @@
-package br.med.clinic.clinicapi.record.appointment;
+package br.med.clinic.clinicapi.domain.appointment.record;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;

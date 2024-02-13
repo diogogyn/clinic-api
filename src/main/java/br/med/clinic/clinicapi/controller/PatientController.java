@@ -1,11 +1,11 @@
 package br.med.clinic.clinicapi.controller;
 
 import br.med.clinic.clinicapi.domain.patient.Patient;
-import br.med.clinic.clinicapi.record.patient.PatientDetailsRecord;
-import br.med.clinic.clinicapi.record.patient.PatientListRecord;
-import br.med.clinic.clinicapi.record.patient.PatientRegisterRecord;
-import br.med.clinic.clinicapi.record.patient.PatientUpdateRecord;
-import br.med.clinic.clinicapi.repository.PatientRepository;
+import br.med.clinic.clinicapi.domain.patient.record.PatientDetailsRecord;
+import br.med.clinic.clinicapi.domain.patient.record.PatientListRecord;
+import br.med.clinic.clinicapi.domain.patient.record.PatientRegisterRecord;
+import br.med.clinic.clinicapi.domain.patient.record.PatientUpdateRecord;
+import br.med.clinic.clinicapi.domain.patient.repository.PatientRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

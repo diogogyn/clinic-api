@@ -1,6 +1,6 @@
 package br.med.clinic.clinicapi.infra.security;
 
-import br.med.clinic.clinicapi.repository.UserRepository;
+import br.med.clinic.clinicapi.domain.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

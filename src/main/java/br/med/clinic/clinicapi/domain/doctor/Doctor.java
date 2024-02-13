@@ -1,9 +1,9 @@
 package br.med.clinic.clinicapi.domain.doctor;
 
 import br.med.clinic.clinicapi.domain.address.Address;
-import br.med.clinic.clinicapi.enums.Speciality;
-import br.med.clinic.clinicapi.record.doctor.DoctorRegisterRecord;
-import br.med.clinic.clinicapi.record.doctor.DoctorUpdateRecord;
+import br.med.clinic.clinicapi.domain.doctor.enums.Speciality;
+import br.med.clinic.clinicapi.domain.doctor.record.DoctorRegisterRecord;
+import br.med.clinic.clinicapi.domain.doctor.record.DoctorUpdateRecord;
 import jakarta.persistence.*;
 import lombok.*;
 

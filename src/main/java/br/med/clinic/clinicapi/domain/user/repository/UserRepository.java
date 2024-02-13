@@ -1,4 +1,4 @@
-package br.med.clinic.clinicapi.repository;
+package br.med.clinic.clinicapi.domain.user.repository;
 
 import br.med.clinic.clinicapi.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
