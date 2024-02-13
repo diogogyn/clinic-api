@@ -1,6 +1,7 @@
-package br.med.clinic.clinicapi.record;
+package br.med.clinic.clinicapi.record.doctor;
 
 import br.med.clinic.clinicapi.enums.Speciality;
+import br.med.clinic.clinicapi.record.AddressRecord;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 
