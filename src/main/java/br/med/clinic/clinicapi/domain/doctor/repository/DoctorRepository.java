@@ -25,7 +25,7 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
             m.id not in(
                 SELECT c.doctor.id FROM Appointment c
                 WHERE
-                c.date =:data
+                c.date =:date
             )
             ORDER BY rand()
             LIMIT 1
@@ -33,8 +33,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     Doctor chooseDoctorRandomFreeOnDate(Speciality speciality, LocalDateTime date);
 
     @Query("""
-            SELECT m.active FROM Medico
-            WHERE m.id = :id
+            SELECT m.active FROM Medico m
+            WHERE m.id = :idMedico
             """)
-    Boolean findActiveById(Long aLong);
+    Boolean findActiveById(Long idMedico);
 }

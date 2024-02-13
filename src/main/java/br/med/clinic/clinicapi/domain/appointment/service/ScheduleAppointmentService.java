@@ -2,6 +2,7 @@ package br.med.clinic.clinicapi.domain.appointment.service;
 
 
 import br.med.clinic.clinicapi.domain.appointment.Appointment;
+import br.med.clinic.clinicapi.domain.appointment.record.AppointmentDetailsRecord;
 import br.med.clinic.clinicapi.domain.appointment.record.ScheduleAppointmentRecord;
 import br.med.clinic.clinicapi.domain.appointment.repository.AppointmentRepository;
 import br.med.clinic.clinicapi.domain.appointment.validations.ScheduleAppointmentValidator;
@@ -27,11 +28,11 @@ public class ScheduleAppointmentService {
     @Autowired
     private List<ScheduleAppointmentValidator> validatorList;
 
-    public void schedule(ScheduleAppointmentRecord record){
+    public AppointmentDetailsRecord schedule(ScheduleAppointmentRecord record){
         if(!this.patientRepository.existsById(record.idPatient())){
             throw new ValidationException("ID do paciente informado não existe");
         }
-        if(record.idDoctor() != null && !this.doctorRepository.existsById(record.idPatient())){
+        if(record.idDoctor() != null && !this.doctorRepository.existsById(record.idDoctor())){
             throw new ValidationException("ID do medico informado não existe");
         }
 
@@ -39,8 +40,12 @@ public class ScheduleAppointmentService {
 
         Patient patient = this.patientRepository.getReferenceById(record.idPatient());
         Doctor doctor = this.chooseDoctor(record);
+        if(doctor == null)
+            throw new ValidationException("Não existe medico disponivel nesta data");
         Appointment appointment = new Appointment(null, doctor, patient, record.date());
-        this.appointmentRepository.save(appointment);
+        Appointment save = this.appointmentRepository.save(appointment);
+
+        return new AppointmentDetailsRecord(save);
     }
 
     private Doctor chooseDoctor(ScheduleAppointmentRecord record) {

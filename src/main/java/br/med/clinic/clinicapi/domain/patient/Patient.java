@@ -19,16 +19,15 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "nome")
     private String name;
     private String email;
-
+    @Column(name = "telefone")
     private String phone;
-
     private String cpf;
-
     @Embedded
     private Address address;
-
+    @Column(name = "ativo")
     private Boolean active;
 
     public Patient(PatientRegisterRecord dados) {
