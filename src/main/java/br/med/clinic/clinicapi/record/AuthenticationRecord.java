@@ -1,4 +1,4 @@
-package br.med.clinic.clinicapi.domain.user;
+package br.med.clinic.clinicapi.record;
 
 public record AuthenticationRecord (String login, String password){
 }

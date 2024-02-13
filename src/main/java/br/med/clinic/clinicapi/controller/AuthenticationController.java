@@ -1,6 +1,6 @@
 package br.med.clinic.clinicapi.controller;
 
-import br.med.clinic.clinicapi.domain.user.AuthenticationRecord;
+import br.med.clinic.clinicapi.record.AuthenticationRecord;
 import br.med.clinic.clinicapi.domain.user.User;
 import br.med.clinic.clinicapi.infra.security.TokenService;
 import br.med.clinic.clinicapi.infra.security.TokenJWTRecord;

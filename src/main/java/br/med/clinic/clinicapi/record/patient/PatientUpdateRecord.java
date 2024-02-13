@@ -1,6 +1,6 @@
 package br.med.clinic.clinicapi.record.patient;
 
-import br.med.clinic.clinicapi.record.AddressRecord;
+import br.med.clinic.clinicapi.record.address.AddressRecord;
 import jakarta.validation.constraints.NotNull;
 
 public record PatientUpdateRecord(

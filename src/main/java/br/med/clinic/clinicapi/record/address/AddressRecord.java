@@ -1,4 +1,4 @@
-package br.med.clinic.clinicapi.record;
+package br.med.clinic.clinicapi.record.address;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

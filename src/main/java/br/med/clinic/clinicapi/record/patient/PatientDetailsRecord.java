@@ -2,7 +2,6 @@ package br.med.clinic.clinicapi.record.patient;
 
 import br.med.clinic.clinicapi.domain.address.Address;
 import br.med.clinic.clinicapi.domain.patient.Patient;
-import br.med.clinic.clinicapi.record.AddressRecord;
 
 public record PatientDetailsRecord(Long id, String name, String email, String cpf, String phone, Address address) {
     public PatientDetailsRecord(Patient patient) {
