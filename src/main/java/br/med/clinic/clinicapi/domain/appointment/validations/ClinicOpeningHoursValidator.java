@@ -2,11 +2,13 @@ package br.med.clinic.clinicapi.domain.appointment.validations;
 
 import br.med.clinic.clinicapi.domain.appointment.record.ScheduleAppointmentRecord;
 import jakarta.validation.ValidationException;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
-public class ClinicOpeningHoursValidator {
+@Component
+public class ClinicOpeningHoursValidator implements ScheduleAppointmentValidator {
 
     public void validate(ScheduleAppointmentRecord record){
         LocalDateTime appointmentDate = record.date();

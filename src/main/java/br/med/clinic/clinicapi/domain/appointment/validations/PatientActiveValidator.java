@@ -1,10 +1,14 @@
-package br.med.clinic.clinicapi.domain.patient.validations;
+package br.med.clinic.clinicapi.domain.appointment.validations;
 
 import br.med.clinic.clinicapi.domain.appointment.record.ScheduleAppointmentRecord;
 import br.med.clinic.clinicapi.domain.patient.repository.PatientRepository;
 import jakarta.validation.ValidationException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class PatientActiveValidator {
+@Component
+public class PatientActiveValidator implements ScheduleAppointmentValidator {
+    @Autowired
     private PatientRepository patientRepository;
     public void validate(ScheduleAppointmentRecord record){
         if(record.idPatient() == null)
