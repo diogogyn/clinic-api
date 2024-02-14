@@ -6,6 +6,7 @@ import br.med.clinic.clinicapi.domain.doctor.record.DoctorListRecord;
 import br.med.clinic.clinicapi.domain.doctor.record.DoctorRegisterRecord;
 import br.med.clinic.clinicapi.domain.doctor.record.DoctorUpdateRecord;
 import br.med.clinic.clinicapi.domain.doctor.repository.DoctorRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("doctor")
+@SecurityRequirement(name = "bearer-key")
 public class DoctorController {
     @Autowired
     private DoctorRepository doctorRepository;

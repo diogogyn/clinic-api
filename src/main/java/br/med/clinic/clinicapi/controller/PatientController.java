@@ -6,6 +6,7 @@ import br.med.clinic.clinicapi.domain.patient.record.PatientListRecord;
 import br.med.clinic.clinicapi.domain.patient.record.PatientRegisterRecord;
 import br.med.clinic.clinicapi.domain.patient.record.PatientUpdateRecord;
 import br.med.clinic.clinicapi.domain.patient.repository.PatientRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("patient")
+@SecurityRequirement(name = "bearer-key")
 public class PatientController {
     @Autowired
     private PatientRepository repository;

@@ -4,6 +4,7 @@ package br.med.clinic.clinicapi.controller;
 import br.med.clinic.clinicapi.domain.appointment.record.AppointmentDetailsRecord;
 import br.med.clinic.clinicapi.domain.appointment.record.ScheduleAppointmentRecord;
 import br.med.clinic.clinicapi.domain.appointment.service.ScheduleAppointmentService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("appointment")
+@SecurityRequirement(name = "bearer-key")
 public class AppointmentController {
     @Autowired
     private ScheduleAppointmentService scheduleAppointmentService;
