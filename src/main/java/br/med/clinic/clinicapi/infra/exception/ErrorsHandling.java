@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
@@ -28,6 +29,17 @@ public class ErrorsHandling {
 
         return ResponseEntity.badRequest().body(fieldErrors.stream().map(ErrorValidationRecord::new).toList());
     }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity handlingError400(HttpMessageNotReadableException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity handlingErrorBusiness(ValidationException ex){
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity handlingErrorBadCredentials() {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais inválidas");
@@ -48,10 +60,6 @@ public class ErrorsHandling {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public ResponseEntity handlingErrorBusiness(ValidationException ex){
-        return ResponseEntity.badRequest().body(ex.getMessage());
-    }
 
     private record ErrorValidationRecord(String field, String message){
         public ErrorValidationRecord(FieldError erro){
