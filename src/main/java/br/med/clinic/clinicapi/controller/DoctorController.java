@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -27,6 +29,7 @@ public class DoctorController {
     private DoctorRepository doctorRepository;
     @PostMapping
     @Transactional
+    @CacheEvict(value = "listAllDoctors", allEntries = true)
     public ResponseEntity create(@RequestBody @Valid DoctorRegisterRecord record, UriComponentsBuilder uriBuilder) {
         Doctor save = this.doctorRepository.save(new Doctor(record));
         URI uri = uriBuilder.path("/doctor/{id}").buildAndExpand(save.getId()).toUri();
@@ -34,6 +37,7 @@ public class DoctorController {
     }
 
     @GetMapping
+    @Cacheable(value = "listAllDoctors")
     public ResponseEntity<Page<DoctorListRecord>> listAll(@PageableDefault(size = 10, sort = {"name"}) Pageable page) {
         Page<DoctorListRecord> pageResult = this.doctorRepository.findAllByActiveTrue(page).map(DoctorListRecord::new);
         return ResponseEntity.ok(pageResult);
@@ -46,6 +50,7 @@ public class DoctorController {
     }
     @PutMapping
     @Transactional
+    @CacheEvict(value = "listAllDoctors", allEntries = true)
     public ResponseEntity update(@RequestBody @Valid DoctorUpdateRecord record){
         Doctor doctor = this.doctorRepository.getReferenceById(record.id());
         doctor.updateInformation(record);
@@ -55,6 +60,7 @@ public class DoctorController {
 
     @DeleteMapping("/{id}")
     @Transactional
+    @CacheEvict(value = "listAllDoctors", allEntries = true)
     public ResponseEntity delete(@PathVariable Long id){
         Doctor byId = this.doctorRepository.getReferenceById(id);
         byId.delete();
