@@ -1,9 +1,16 @@
 # API Rest - Clinica médica
-## Versão 1.0
+
+## Versão 1.1
+- Inclusão da biblioteca de Spring Boot Admin para monitoramento da API
+- Implementação de Ecache em memoria (ainda sem utilziar um serviço externo)
+- Implementação da funcionalidade do Spring Actuator
+- Implementação de perfis para deploy da aplicação
+##### Funcionalidades
 
 Esta é uma API Rest implementada em Java 17 com o framework Spring Boot, para fazer a gestão de horarios de atendimento de uma clinica. Por se tratar de uma primeira versão, esta ainda conta com recursos limitados.
 
-## Funcionalidades
+## Versão 1.0
+##### Funcionalidades
 
 - Cadastro, atualização e exclusão de medicos;
 - Cadastro, atualização e exclusão de pacientes;
@@ -21,6 +28,8 @@ Para implementar esta aplicação foram utilizados os seguntes recursos:
 - [SpringDoc] - Spring Doc Open Api
 - [lombok] - Lombok
 - [Maven] - Apache Maven
+- [SpringBoot Admin] Biblioteca do Spring Boot Admin/client da Codecentric
+- [Spring actuator] Spring Actuator
 
 ## Deployment
 
@@ -34,8 +43,7 @@ Em prod:
   java -Dspring.profiles.active=prod -jar clinic-api-0.0.1-SNAPSHOT.jar 
 ```
 
-
-[maven: <https://maven.apache.org/>
+[maven]: <https://maven.apache.org/>
 [lombok]: <https://projectlombok.org/>
 [SpringDoc]: <https://springdoc.org/>
 [JwtIo]: <https://jwt.io/libraries>
@@ -43,6 +51,8 @@ Em prod:
 [Flyway]: <https://flywaydb.org/>
 [Mysql]: <https://www.mysql.com/>
 [SpringBoot]: <https://spring.io/projects/spring-boot>
+[SpringBoot Admin]: <https://github.com/codecentric/spring-boot-admin>
+[SpringBoot actuator]: <https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html>
 
 [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
 [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
