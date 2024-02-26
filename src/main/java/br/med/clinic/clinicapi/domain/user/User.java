@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -15,22 +16,33 @@ import java.util.List;
 @Getter
 @EqualsAndHashCode(of = "id")
 @Table(name = "usuarios")
-@Entity(name = "User")
+@Entity(name = "Usuario")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
     @Column(name = "login")
+    @Getter
     private String login;
     @Column(name = "senha")
+    @Getter
     private String senha;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Profile> perfis = new ArrayList<>();
+
+    public List<Profile> getPerfis() {
+        return perfis;
+    }
+
     /**
      * para controlde de acessos/perfis. Implementar no futuro
      * @return
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return this.perfis;
     }
 
     @Override
