@@ -3,7 +3,6 @@ package br.med.clinic.clinicapi.domain.appointment.record;
 import br.med.clinic.clinicapi.domain.doctor.enums.Speciality;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
-import org.aspectj.weaver.ast.Not;
 
 import java.time.LocalDateTime;
 

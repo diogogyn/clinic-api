@@ -1,7 +1,8 @@
 package br.med.clinic.clinicapi.domain.address;
 
 import br.med.clinic.clinicapi.domain.address.record.AddressRecord;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
