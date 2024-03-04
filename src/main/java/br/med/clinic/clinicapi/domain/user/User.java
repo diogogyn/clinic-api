@@ -26,6 +26,18 @@ public class User implements UserDetails {
     @Column(name = "senha")
     @Getter
     private String senha;
+    @Column(name = "ativo")
+    @Getter
+    private Boolean active;
+    @Column(name = "expirado")
+    @Getter
+    private Boolean expired;
+    @Column(name = "bloqueado")
+    @Getter
+    private Boolean locked;
+    @Column(name = "credencial_expirada")
+    @Getter
+    private Boolean credentialsExpired;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Profile> perfis = new ArrayList<>();
@@ -55,12 +67,12 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return !expired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !locked;
     }
     /**
      * Implementar no futuro o controle de expiração do usuario. Procurar como implementar a expiração da credencial do usuario
@@ -68,11 +80,11 @@ public class User implements UserDetails {
      */
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return !credentialsExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return active;
     }
 }
