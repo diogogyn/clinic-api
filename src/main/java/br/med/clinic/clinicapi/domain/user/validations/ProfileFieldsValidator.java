@@ -12,13 +12,13 @@ public class ProfileFieldsValidator implements UserProfileValidator {
 
     @Override
     public void validate(UserProfileRecord record) {
-        if(record.userId() == null)
-            throw new ValidationException("ID do usuário não foi informado");
+//        if(record.userId() == null)
+//            throw new ValidationException("ID do usuário não foi informado");
         if(record.rolesId().isEmpty()){
             throw new ValidationException("Nenhuma Profile ID para o usuário não foi informado");
         }
-        if(this.userRepository.existsById(record.userId()))
-            throw new ValidationException("Usuário não foi encontrado pelo ID informado");
+//        if(this.userRepository.existsById(record.userId()))
+//            throw new ValidationException("Usuário não foi encontrado pelo ID informado");
 
     }
 }

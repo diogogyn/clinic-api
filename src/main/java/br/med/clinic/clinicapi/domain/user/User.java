@@ -1,5 +1,6 @@
 package br.med.clinic.clinicapi.domain.user;
 
+import br.med.clinic.clinicapi.domain.user.record.UserUpdateRecord;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -86,5 +87,17 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return active;
+    }
+
+    public void updateInformation(UserUpdateRecord record) {
+        if(record.login() != null) this.setLogin(record.login());
+        if(record.password() != null) this.setSenha(record.password());
+    }
+
+    public void setDeafaultSettings(){
+        this.setExpired(false);
+        this.setActive(true);
+        this.setLocked(false);
+        this.setCredentialsExpired(false);
     }
 }

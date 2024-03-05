@@ -12,9 +12,9 @@ public class UserExistsValidator implements UserValidator {
     private UserRepository repository;
     @Override
     public void validate(UserRegisterRecord record) {
-//        if(this.repository.findByLogin(record.login()) != null){
-//            throw new ValidationException("Já existe um usuario cadastrado com este login no sistema. Experimente Recuperar o acesso ou atualizar o cadastro");
-//        }
+        if(this.repository.findByLogin(record.login()) != null){
+            throw new ValidationException("Já existe um usuario cadastrado com este login no sistema. Experimente Recuperar o acesso ou atualizar o cadastro");
+        }
     }
 
     @Override

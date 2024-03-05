@@ -8,6 +8,7 @@ import br.med.clinic.clinicapi.domain.user.record.UserRegisterRecord;
 import br.med.clinic.clinicapi.domain.user.record.UserUpdateRecord;
 import br.med.clinic.clinicapi.domain.user.record.profile.ProfileDetailsRecord;
 import br.med.clinic.clinicapi.domain.user.record.profile.ProfileRecord;
+import br.med.clinic.clinicapi.domain.user.record.profile.UserProfileRecord;
 import br.med.clinic.clinicapi.domain.user.repository.UserRepository;
 import br.med.clinic.clinicapi.infra.administration.repository.ProfileRepository;
 import br.med.clinic.clinicapi.infra.administration.service.AdministrationService;
@@ -40,37 +41,35 @@ public class AdministrationController {
     private UserRepository userRepository;
 
     @PostMapping("/user")
-    @Transactional
     @CacheEvict(value = "listAllUsers", allEntries = true)
     public ResponseEntity create(@RequestBody @Valid UserRegisterRecord record, UriComponentsBuilder uriBuilder) {
 
         User save = this.adminService.createUser(record);
-        URI uri = uriBuilder.path("/user/{id}").buildAndExpand(save.getId()).toUri();
-        return ResponseEntity.created(uri).body(new UserListRecord(save));
+        User user = this.userRepository.getReferenceById(save.getId());
+        URI uri = uriBuilder.path("/user/{id}").buildAndExpand(user.getId()).toUri();
+        return ResponseEntity.created(uri).body(new UserDetailRecord(user));
     }
 
-    @DeleteMapping("/user/{id}")
+    @PutMapping("/user/disable/{id}")
     @Transactional
     @CacheEvict(value = "listAllUsers", allEntries = true)
     public ResponseEntity disableUser(@PathVariable Long id){
-        User byId = this.userRepository.getReferenceById(id);
-        //byId.disable();
+        this.adminService.disableUser(id);
         return ResponseEntity.noContent().build();
     }
-    @DeleteMapping("/user/all/{id}")
+
+    @DeleteMapping("/user/{id}")
     @CacheEvict(value = "listAllUsers", allEntries = true)
     public ResponseEntity deleteAllOfUser(@PathVariable Long id){
         this.adminService.deleteAllOfUser(id);
         return ResponseEntity.noContent().build();
     }
-    @PutMapping
+    @PutMapping("/user/password")
     @Transactional
     @CacheEvict(value = "listAllUsers", allEntries = true)
-    public ResponseEntity updateUser(@RequestBody @Valid UserUpdateRecord record){
-        User user = this.userRepository.getReferenceById(record.id());
-        //user.updateInformation(record);
-
-        return ResponseEntity.ok(new UserListRecord(user));
+    public ResponseEntity updateUserPassword(@RequestBody @Valid UserUpdateRecord record){
+        this.adminService.updateUserPassword(record);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/user")
@@ -86,20 +85,44 @@ public class AdministrationController {
         return ResponseEntity.ok(new UserDetailRecord(user));
     }
 
+    @PostMapping("/user/profile")
+    @Transactional
+    @CacheEvict(value = "listAllUsers", allEntries = true)
+    public ResponseEntity addProfileToUser(@RequestBody @Valid UserProfileRecord record, UriComponentsBuilder uriBuilder) {
+        this.adminService.addProfileToUser(record);
+        return ResponseEntity.noContent().build();
+    }
+    @DeleteMapping("/user/profile")
+    @Transactional
+    @CacheEvict(value = "listAllUsers", allEntries = true)
+    public ResponseEntity deleteProfileFromUser(@RequestBody @Valid UserProfileRecord record, UriComponentsBuilder uriBuilder) {
+        this.adminService.deleteProfileFromUser(record);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/user/profile")
+    @Transactional
+    @CacheEvict(value = "listAllUsers", allEntries = true)
+    public ResponseEntity updateProfileFromUser(@RequestBody @Valid UserProfileRecord record, UriComponentsBuilder uriBuilder) {
+        this.adminService.deleteProfileFromUser(record);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/profile")
-    @Cacheable(value = "listAllProfiles")
+    @Cacheable(value = "listAllUsers")
     public ResponseEntity listAllProfiles(){
         return ResponseEntity.ok(this.profileRepository.findAll().stream().map(ProfileDetailsRecord::new));
     }
 
     @PostMapping("/profile")
     @Transactional
-    @CacheEvict(value = "listAllDoctors", allEntries = true)
+    @CacheEvict(value = "listAllUsers", allEntries = true)
     public ResponseEntity createProfile(@RequestBody @Valid ProfileRecord record, UriComponentsBuilder uriBuilder) {
         Profile save = this.adminService.createProfile(record);
         URI uri = uriBuilder.path("/profile/{id}").buildAndExpand(save.getId()).toUri();
         return ResponseEntity.created(uri).body(new ProfileDetailsRecord(save));
     }
+
+
 
     @GetMapping("/profile/{id}")
     @Cacheable(value = "listAllUsers")
