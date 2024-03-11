@@ -12,14 +12,15 @@ import br.med.clinic.clinicapi.domain.user.validations.UserProfileValidator;
 import br.med.clinic.clinicapi.domain.user.validations.UserValidator;
 import br.med.clinic.clinicapi.infra.administration.repository.ProfileRepository;
 import br.med.clinic.clinicapi.infra.administration.repository.UserProfileRepository;
+import br.med.clinic.clinicapi.infra.security.BCryptPasswordEncript;
+import jakarta.transaction.Transactional;
 import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import jakarta.transaction.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
-import br.med.clinic.clinicapi.infra.security.BCryptPasswordEncript;
 @Service
 public class AdministrationService {
     @Autowired
