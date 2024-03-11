@@ -1,5 +1,6 @@
 package br.med.clinic.clinicapi.infra.administration.service;
 
+import br.med.clinic.clinicapi.domain.http.ViaCepResponse;
 import br.med.clinic.clinicapi.domain.user.Profile;
 import br.med.clinic.clinicapi.domain.user.User;
 import br.med.clinic.clinicapi.domain.user.UserProfile;
@@ -10,6 +11,7 @@ import br.med.clinic.clinicapi.domain.user.record.profile.UserProfileRecord;
 import br.med.clinic.clinicapi.domain.user.repository.UserRepository;
 import br.med.clinic.clinicapi.domain.user.validations.UserProfileValidator;
 import br.med.clinic.clinicapi.domain.user.validations.UserValidator;
+import br.med.clinic.clinicapi.http.ViaCepClient;
 import br.med.clinic.clinicapi.infra.administration.repository.ProfileRepository;
 import br.med.clinic.clinicapi.infra.administration.repository.UserProfileRepository;
 import br.med.clinic.clinicapi.infra.security.BCryptPasswordEncript;
@@ -18,6 +20,7 @@ import jakarta.validation.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,8 @@ public class AdministrationService {
     private ProfileRepository profileRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ViaCepClient viaCepClient;
 
     @Autowired
     private BCryptPasswordEncript encript;
@@ -131,6 +136,9 @@ public class AdministrationService {
         if(!profilesToDelete.isEmpty()) this.deleteProfileToUser(record.userId(), profilesToDelete);
     }
 
+    public ViaCepResponse getAddress(@PathVariable String cep){
+        return this.viaCepClient.getAddress(cep);
+    }
     private void deleteProfileToUser(Long userId, List<Long> roles){
         for(Long role : roles){
             UserProfile referenceByUserIdAndProfileId = this.userProfileRepository.getReferenceByUserIdAndProfileId(userId, role);

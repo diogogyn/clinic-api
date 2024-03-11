@@ -1,5 +1,6 @@
 package br.med.clinic.clinicapi.controller;
 
+import br.med.clinic.clinicapi.domain.http.ViaCepResponse;
 import br.med.clinic.clinicapi.domain.user.Profile;
 import br.med.clinic.clinicapi.domain.user.User;
 import br.med.clinic.clinicapi.domain.user.record.UserDetailRecord;
@@ -10,6 +11,7 @@ import br.med.clinic.clinicapi.domain.user.record.profile.ProfileDetailsRecord;
 import br.med.clinic.clinicapi.domain.user.record.profile.ProfileRecord;
 import br.med.clinic.clinicapi.domain.user.record.profile.UserProfileRecord;
 import br.med.clinic.clinicapi.domain.user.repository.UserRepository;
+import br.med.clinic.clinicapi.http.ViaCepClient;
 import br.med.clinic.clinicapi.infra.administration.repository.ProfileRepository;
 import br.med.clinic.clinicapi.infra.administration.service.AdministrationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -39,6 +41,8 @@ public class AdministrationController {
     private ProfileRepository profileRepository;
     @Autowired
     private UserRepository userRepository;
+
+
 
     @PostMapping("/user")
     @CacheEvict(value = "listAllUsers", allEntries = true)
@@ -122,12 +126,15 @@ public class AdministrationController {
         return ResponseEntity.created(uri).body(new ProfileDetailsRecord(save));
     }
 
-
-
     @GetMapping("/profile/{id}")
     @Cacheable(value = "listAllUsers")
     public ResponseEntity<ProfileDetailsRecord> detailProfile(@PathVariable Long id) {
         var profile = this.profileRepository.getReferenceById(id);
         return ResponseEntity.ok(new ProfileDetailsRecord(profile));
+    }
+    @GetMapping("/address/{cep}")
+    public ResponseEntity<ViaCepResponse> detailProfile(@PathVariable String cep) {
+        ViaCepResponse address = this.adminService.getAddress(cep);
+        return ResponseEntity.ok(address);
     }
 }
