@@ -1,5 +1,6 @@
 package br.med.clinic.clinicapi.infra.exception;
 
+import feign.FeignException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ValidationException;
 import org.springframework.http.HttpStatus;
@@ -60,6 +61,12 @@ public class ErrorsHandling {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
     }
 
+    @ExceptionHandler({ FeignException.class, FeignException.FeignClientException.class })
+    public ResponseEntity<?> handleFeignException(final FeignException ex) {
+        if(ex.status() == 400)
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro: Parece que você tentou passar um dado invalido");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: Não conseguimos retornar os dados do serviço");
+    }
 
     private record ErrorValidationRecord(String field, String message){
         public ErrorValidationRecord(FieldError erro){

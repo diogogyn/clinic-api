@@ -139,6 +139,7 @@ public class AdministrationService {
     public ViaCepResponse getAddress(@PathVariable String cep){
         return this.viaCepClient.getAddress(cep);
     }
+
     private void deleteProfileToUser(Long userId, List<Long> roles){
         for(Long role : roles){
             UserProfile referenceByUserIdAndProfileId = this.userProfileRepository.getReferenceByUserIdAndProfileId(userId, role);
